@@ -4,6 +4,7 @@ import { BookService } from '../../services/book.service';
 import { Router, RouterModule } from '@angular/router';
 import { Book } from '../../models/book.model';
 import { HighlightDirective } from '../../directives/highlight.directive';
+import Swal from 'sweetalert2'; // Import de la librairie SweetAlert2
 
 @Component({
   selector: 'app-book-list',
@@ -41,11 +42,21 @@ export class BookListComponent implements OnInit {
     this.bookService.toggleFavorite(book.id).subscribe({
       next: (updatedBook: Book) => {
         // TODO 16: Affiche une alerte qui indique que le favori a été modifié
-        alert('Le favori a été modifié');
+        Swal.fire({
+          title: 'Succès!',
+          text: 'Le favori a été modifié.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
       },
       error: (err: any) => {
         // TODO 17: Affiche une alerte qui indique que la modification du favori a échoué
-        alert('La modification du favori a échoué');
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'La modification du favori a échoué.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         console.error('Erreur lors de la modification du favori:', err);
       }
     });
@@ -55,12 +66,22 @@ export class BookListComponent implements OnInit {
     this.bookService.deleteBook(id).subscribe({
       next: () => {
         // TODO 18: Affiche une alerte qui indique que le livre a été supprimé
-        alert('Le livre a été supprimé');
+        Swal.fire({
+          title: 'Succès!',
+          text: 'Le livre a été supprimé.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         console.log('Livre supprimé:', id);
       },
       error: (err: any) => {
         // TODO 19: Affiche une alerte qui indique que la suppression du livre a échoué
-        alert('La suppression du livre a échoué');
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'La suppression du livre a échoué.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         console.error('Erreur lors de la suppression du livre:', err);
       }
     });
